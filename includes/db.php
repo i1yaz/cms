@@ -1,7 +1,7 @@
 <?php
 //Default Connection
 
-$connection = mysqli_connect('localhost','root','@28August1991','cms');
+$connection = mysqli_connect('localhost','root','imdeadpool2','cms');
 
 if (!$connection) {
     echo "Connection to server failed";
