@@ -31,7 +31,7 @@
                         </span>
                         </div>
                         
-                    </div>
+                    
                     </form>
                     <!-- /.input-group -->
                 </div>
@@ -61,8 +61,11 @@
                     <!-- /.row -->
                 </div>
 
-
+                <div>
                 <!-- Side Widget Well -->
                 <?php include "widget.php" ?>
 
             </div>
+</div>
+            
+            

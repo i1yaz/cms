@@ -32,6 +32,7 @@ if (isset($_POST['create_user'])) {
     if (!$result_signup) {
         die("QUERY FAULED ". mysqli_error($connection));
     }
+    echo "User Created: ". " ". "<a href='users.php'>View Users</a>";
 }
 ?>
 
