@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -16,7 +17,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
 
-                <li class="dropdown" >
+                <li class="dropdown">
 
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Categories <b
                             class="caret"></b></a>
@@ -44,10 +45,18 @@
             <li>
                 <a href="admin">Admin</a>
             </li>
+            
+            <?php 
+            if (isset($_SESSION['role'])) {
+                if (isset($_GET['p_id'])) {
+                    $post_id = $_GET['p_id'];
+                    echo "<li><a href='admin/posts.php?source=edit_post&p_id={$post_id}'>Edit Post</a></li>";
+                    
+                }
+            }
+            ?>
+            
             <!-- <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
                         <a href="#">Contact</a>
                     </li> -->
 

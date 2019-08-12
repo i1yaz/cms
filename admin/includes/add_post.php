@@ -14,7 +14,7 @@ if (isset($_POST['submit_post'])) {
     $post_date = date('d-m-y');
     //$post_comment_count = 0;
 
-    $post_title = mysqli_real_escape_string($connection,$post_title);
+    //$post_title = mysqli_real_escape_string($connection,$post_title);
     $post_author = mysqli_real_escape_string($connection,$post_author);
     $post_cat_id = mysqli_real_escape_string($connection,$post_cat_id);
     $post_status = mysqli_real_escape_string($connection,$post_status);
@@ -30,6 +30,8 @@ if (isset($_POST['submit_post'])) {
     $result_insert = mysqli_query($connection,$insert_query);
 
     confirmQuery($result_insert);
+    $get_post_id = mysqli_insert_id($connection);
+    echo "<p class='bg-success'>Post has been created. <a href='../post.php?p_id={$get_post_id}'> View Post </a> | <a href='posts.php'> Edit More Posts</a></p>";
 }
 ?>
 
@@ -57,10 +59,17 @@ if (isset($_POST['submit_post'])) {
         <label for="post_author">Post Author</label>
         <input type="text" class="form-control" name="post_author">
     </div>
+
     <div class="form-group">
-        <label for="post_status">Post Status</label>
-        <input type="text" class="form-control" name="post_status">
+    <select name="post_status" id="" >
+    <option value="draft">Select Options</option>
+    <option value="published">Publish</option>
+    <option value="draft">Draft</option>
+    </select>
+        <!-- <label for="post_status">Post Status</label>
+        <input type="text" class="form-control" name="post_status"> -->
     </div>
+
     <div class="form-group">
         <label for="post_image">Post Image</label>
         <input type="file" name="post_image">

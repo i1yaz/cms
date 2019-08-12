@@ -80,15 +80,15 @@
                 <form action="" method="post" role="form">
                     <div class="form-group">
                         <label for="comment_author">Name</label>
-                        <input type="text" class="form-control" name="comment_author">
+                        <input type="text" class="form-control" name="comment_author" required>
                     </div>
                     <div class="form-group">
                         <label for="comment_email">Email</label>
-                        <input type="email" class="form-control" name="comment_email">
+                        <input type="email" class="form-control" name="comment_email" required>
                     </div>
                     <div class="form-group">
                         <label for="comment">Comment</label>
-                        <textarea class="form-control" rows="3" name="comment"></textarea>
+                        <textarea class="form-control" rows="3" name="comment" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary" name="create_comment">Submit</button>
                 </form>

@@ -29,11 +29,11 @@ if (isset($_POST['update_post'])) {
     $post_content =    $_POST['post_content'];
 
     $post_author = mysqli_real_escape_string($connection,$post_author);
-    $post_title =  mysqli_real_escape_string($connection,$post_title);
+    //$post_title =  mysqli_real_escape_string($connection,$post_title);
     $post_cat_id = mysqli_real_escape_string($connection,$post_cat_id);
     $post_status = mysqli_real_escape_string($connection,$post_status);
     $post_tags = mysqli_real_escape_string($connection,$post_tags);
-    $post_content = mysqli_real_escape_string($connection,$post_content);
+    //$post_content = mysqli_real_escape_string($connection,$post_content);
     
 
     move_uploaded_file($post_image_temp,"../images/$post_image");
@@ -48,6 +48,8 @@ if (isset($_POST['update_post'])) {
 
     $result_update = mysqli_query($connection,$query);
     confirmQuery($result_update);
+
+    echo "<p class='bg-success'>Post has been updated. <a href='../post.php?p_id={$get_post_id}'> View Post </a> | <a href='posts.php'> Edit More Posts</a></p>";
 
 }
     
@@ -84,10 +86,21 @@ confirmQuery($result_update);
         <label for="post_author">Edit Author</label>
         <input value="<?php echo $post_author ?> " type="text" class="form-control" name="post_author">
     </div>
+
     <div class="form-group">
-        <label for="post_status">Edit Status</label>
-        <input value="<?php echo $post_status ?> " type="text" class="form-control" name="post_status">
+    <Select name="post_status" id="">
+    
+    <option value='<?php echo $post_status ?>'><?php echo ucfirst($post_status); ?></option>
+    <?php 
+    if ($post_status == 'published') {
+        echo "<option value='draft'>Draft</option>";
+    }else {
+        echo "<option value='published'>Publish</option>";
+    }
+    ?>
+    </Select>
     </div>
+
     <div class="form-group">
         <img width='100' src="../images/<?php echo $post_image; ?>" alt="">
         <input type="file" name="post_image">
