@@ -16,7 +16,13 @@
 
             if (isset($_GET['p_id'])) {
                 $the_post_id = $_GET['p_id'];
-            }
+
+                $view_query = "UPDATE posts SET post_views_count = post_views_count + 1 WHERE post_id = $the_post_id";
+                $view_query_result = mysqli_query($connection,$view_query);
+                if (!$view_query_result) {
+                    die("QUERY FAILED " . mysqli_error($connection));
+                }
+            
                 $query = "SELECT * FROM posts WHERE post_id=$the_post_id";
                 $result = mysqli_query($connection,$query);
                 while ( $row = mysqli_fetch_assoc($result) ) {
@@ -49,7 +55,11 @@
 
             <hr>
 
-            <?php  } ?>
+            <?php  }
+        
+        }else{
+            Header("Location: index.php");
+        } ?>
 
 
             <!-- Blog Comments -->

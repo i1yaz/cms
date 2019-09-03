@@ -40,11 +40,18 @@ if (isset($_POST['edit_user'])) {
     $user_email = mysqli_real_escape_string($connection,$user_email);
     $user_password = mysqli_real_escape_string($connection,$user_password);
 
-
+    $randSalt = "SELECT randSalt FROM users";
+    $select_randSalt_query = mysqli_query($connection,$randSalt);
+    if (!$select_randSalt_query) {
+        die("QUERY FAILED " . mysqli_error($connection).' '.mysqli_errno($connection));
+    }
+    $row = mysqli_fetch_array($select_randSalt_query);
+    $salt = $row['randSalt'];
+    $user_password = crypt($user_password,$salt);
     //move_uploaded_file($post_image_temp,"../images/$post_image");
 
-    $update_query = "UPDATE users SET user_name='$user_name',user_password='$user_password',";
-    $update_query .= "user_firstname='$user_firstname',user_lastname='$user_lastname',user_email='$user_email',user_role='$user_role' WHERE user_id=$the_user_id";
+    $update_query = "UPDATE users SET user_name='{$user_name}',user_password='{$user_password}',";
+    $update_query .= "user_firstname='{$user_firstname}',user_lastname='{$user_lastname}',user_email='{$user_email}',user_role='{$user_role}' WHERE user_id=$the_user_id";
     
     $result_update = mysqli_query($connection,$update_query);
 
@@ -67,7 +74,7 @@ if (isset($_POST['edit_user'])) {
 
     <div class="form-group">
         <select class="" name="user_role" id="">
-        <option value="admin"><?php echo $the_user_role; ?></option>
+        <option value="<?php echo $the_user_role; ?>"><?php echo $the_user_role; ?></option>
         <?php 
         if ($the_user_role == 'admin') {
             echo "<option value='subscriber'>subscriber</option>";
@@ -97,7 +104,7 @@ if (isset($_POST['edit_user'])) {
         <input type="password" value="<?php echo $the_user_password ?>" class="form-control" name="user_password" required>
     </div>
     <div class="form-group">
-        <input type="submit" class="btn btn-primary" name="edit_user" Value="Sign Up">
+        <input type="submit" class="btn btn-primary" name="edit_user" Value="Update">
     </div>
 
 </form>

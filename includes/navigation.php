@@ -27,11 +27,12 @@
                 $result = mysqli_query($connection,$query);
                 while ( $row = mysqli_fetch_assoc($result) ) {
                     $cat_title = $row['cat_title'];
+                    $the_cat_id = $row['cat_id'];
                     //echo "<li><a href='#'>{$cat_title}</a></li>";
                     ?>
 
                         <li>
-                            <a href="#"><i class=""></i><?php echo $cat_title ?></a>
+                            <a href='category.php?category= <?php $the_cat_id?>'><i class=""></i><?php echo $cat_title ?></a>
                         </li>
                         <li class="divider"></li>
 
@@ -44,7 +45,7 @@
 
             <li>
                 <a href="admin">Admin</a>
-            </li>
+            
             
             <?php 
             if (isset($_SESSION['role'])) {
@@ -55,10 +56,10 @@
                 }
             }
             ?>
-            
-            <!-- <li>
-                        <a href="#">Contact</a>
-                    </li> -->
+            </li>
+            <li>
+                        <a href='registration.php'>Register</a>
+                    </li>
 
             </ul>
         </div>
