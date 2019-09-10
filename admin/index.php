@@ -1,7 +1,7 @@
 <?php include "includes/admin_header.php" ?>
 
-    <div id="wrapper">
 
+    <div id="wrapper">
         <!-- Navigation -->
         <?php include "includes/admin_navigation.php" ?>
 
@@ -14,7 +14,7 @@
                         <h1 class="page-header">
                             Welcome To Admin
                             <small><?php echo $_SESSION['username']; ?></small>
-                        </h1>                      
+                        </h1>                  
                     </div>
                 </div>
                 <!-- /.row -->

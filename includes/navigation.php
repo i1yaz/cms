@@ -32,7 +32,7 @@
                     ?>
 
                         <li>
-                            <a href='category.php?category= <?php $the_cat_id?>'><i class=""></i><?php echo $cat_title ?></a>
+                            <a href='category.php?category= <?php echo $the_cat_id?>'><i class=""></i><?php echo $cat_title ?></a>
                         </li>
                         <li class="divider"></li>
 

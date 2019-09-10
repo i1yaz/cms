@@ -19,8 +19,7 @@ if (isset($_POST['login'])) {
         die("QUERY FAILE ". mysqli_error($connection));
     }
 
-    // global $db_user_name;
-    // global $db_user_password;
+
     while ($row = mysqli_fetch_array($result_user_query)) {
         
 
@@ -32,16 +31,14 @@ if (isset($_POST['login'])) {
         $db_user_role = $row['user_role'];
 
     }
-    $password = crypt($password,$db_user_password);
-    if ($username === $db_user_name && $password === $db_user_password) {
+
+    if (password_verify($password,$db_user_password)) {
         $_SESSION['username'] = $db_user_name;
         $_SESSION['firstname'] = $db_user_firstname;
         $_SESSION['lastname'] = $db_user_lastname;
         $_SESSION['role'] = $db_user_role;
 
         header("Location: ../admin");
-    }else {
-        header("Location: ../index.php");
     }
 }
 ?>

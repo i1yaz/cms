@@ -23,6 +23,7 @@ if (isset($_POST['create_user'])) {
 
 
     //move_uploaded_file($post_image_temp,"../images/$post_image");
+    $user_password = password_hash($user_password,PASSWORD_BCRYPT,array('cost'=>10));
 
     $signup_query = "INSERT INTO users( user_name, user_password, user_firstname, user_lastname, user_email, user_role) ";
     $signup_query .= "VALUES ('{$user_name}','{$user_password}','{$user_firstname}','{$user_lastname}','{$user_email}','{$user_role}') ";

@@ -16,7 +16,7 @@ if (isset($_GET['edit_user'])) {
         $the_user_image = $row['user_image'];
         $the_user_role = $row['user_role'];
     }
-}
+
 
 if (isset($_POST['edit_user'])) {
 
@@ -30,7 +30,7 @@ if (isset($_POST['edit_user'])) {
 
     $user_email = $_POST['user_email'];
     $user_password = $_POST['user_password'];
-    // $post_date = date('d-m-y');
+    $post_date = date('d-m-y');
     // $post_comment_count = 0;
 
     $user_firstname = mysqli_real_escape_string($connection,$user_firstname);
@@ -40,17 +40,20 @@ if (isset($_POST['edit_user'])) {
     $user_email = mysqli_real_escape_string($connection,$user_email);
     $user_password = mysqli_real_escape_string($connection,$user_password);
 
-    $randSalt = "SELECT randSalt FROM users";
-    $select_randSalt_query = mysqli_query($connection,$randSalt);
-    if (!$select_randSalt_query) {
-        die("QUERY FAILED " . mysqli_error($connection).' '.mysqli_errno($connection));
+    
+    
+    $query_password = "SELECT user_password FROM users WHERE user_id = $the_user_id";
+    $get_user = mysqli_query($connection,$query_password);
+    if (!$get_user) {
+        die("QUERY FAILED ". $connection);
     }
-    $row = mysqli_fetch_array($select_randSalt_query);
-    $salt = $row['randSalt'];
-    $user_password = crypt($user_password,$salt);
-    //move_uploaded_file($post_image_temp,"../images/$post_image");
+    $row = mysqli_fetch_array($get_user);
+    $db_user_password = $row['user_password'];
+    if ($db_user_password != $user_password) {
+        $hash_password = password_hash($user_password,PASSWORD_BCRYPT,array('cost'=>10));
+    }
 
-    $update_query = "UPDATE users SET user_name='{$user_name}',user_password='{$user_password}',";
+    $update_query = "UPDATE users SET user_name='{$user_name}',user_password='{$hash_password}',";
     $update_query .= "user_firstname='{$user_firstname}',user_lastname='{$user_lastname}',user_email='{$user_email}',user_role='{$user_role}' WHERE user_id=$the_user_id";
     
     $result_update = mysqli_query($connection,$update_query);
@@ -58,7 +61,11 @@ if (isset($_POST['edit_user'])) {
     if (!$result_update) {
         die("QUERY FAULED ". mysqli_error($connection));
     }
+    echo "User Updated " . "<a href='users.php'>View Users</a>";
     header ("Location: users.php");
+}
+}else {
+    header ("Location: index.php");
 }
 ?>
 
